@@ -46,18 +46,16 @@ if [ "$3" = "web" ]; then
 	touch src/frontend/main.ipynb
 	mkdir src/backend
 	mkdir src/secrets
-	cp "$script_dir/py_utils.py" "$project_dir/src"
+	cp "../create_python_utils/py_utils.py" "$project_dir/src"
 elif [ "$3" = "standard" ]; then
 	mkdir src/components
+	mkdir src/utils
 	touch "README.md"
 	echo $script_dir
-	cp "$script_dir/py_utils.py" "$project_dir"
-	echo "here"
-	ls "$project_dir/src/"
+	cp "../create_python_utils/py_utils.py" "src/utils"
 fi
 
 touch README.md
-ls .
 # Define source and destination directories
 
 mkdir src/data
@@ -66,17 +64,29 @@ mkdir tests
 touch requirements.txt
 touch .gitignore
 
-# Create a virtual environment
-#python3 -m venv venv
 
 # Create a main Python script (e.g., main.py)
-echo 'import pandas as pd' >> src/main.py
-echo 'import numpy as np' >> src/main.py
-echo 'def main():' >> src/main.py
-echo '    pass' >> src/main.py
-echo '' >> src/main.py
-echo 'if __name__ == "__main__":' >> src/main.py
-echo '    main()' >> src/main.py
+if [ "$3" = "web" ]; then
+	echo 'import pandas as pd' >> src/main.py
+	echo 'import numpy as np' >> src/main.py
+	echo 'def main():' >> src/main.py
+	echo '    pass' >> src/main.py
+	echo '' >> src/main.py
+	echo 'if __name__ == "__main__":' >> src/main.py
+	echo '    main()' >> src/main.py
+elif [ "$3" = "standard" ]; then
+	echo 'import pandas as pd' >> src/main.py
+	echo 'import numpy as np' >> src/main.py
+	echo 'import argparse' >> src/main.py
+	echo 'import os' >> src/main.py
+	echo 'import time' >> src/main.py
+	echo 'def main():' >> src/main.py
+	echo '    pass' >> src/main.py
+	echo '' >> src/main.py
+	echo 'if __name__ == "__main__":' >> src/main.py
+	echo '    main()' >> src/main.py
+fi
+
 
 # Create main Test script
 echo 'def test_main():' >> tests/main_test.py
@@ -87,13 +97,18 @@ echo '	test_main()' >> tests/main_test.py
 echo '	print("Everything passed")' >> tests/main_test.py
 
 # Create virtual environment
-python3 -m venv venv
+if [ "$3" = "web" ]; then
+	python3 -m venv venv
+	source venv/bin/activate
+	pip install --upgrade pip
+	pip install ipykernel pandas matplotlib
+elif [ "$3" = "standard" ]; then
+	cp ../create_python_utils/conda_env.yml .
+	source ~/miniconda3/bin/activate .
+	conda env create -f ../create_python_utils/conda_env.yml
+	conda activate conda_env
+fi
 
-source venv/bin/activate
-
-pip install --upgrade pip
-
-pip install ipykernel pandas matplotlib
 
 # Print a success message
 echo "Project scaffolding for '$project_name' created successfully!"
