@@ -1,0 +1,43 @@
+name: Test create_python
+
+on:
+  push:
+    branches:
+      - master
+      
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v2
+
+    - name: Set up Miniconda
+      uses: conda-incubator/setup-miniconda@v2
+      with:
+        auto-update-conda: false
+    
+    - name: Remove existing Conda env
+      run: | 
+        conda env remove -n conda_end || true
+      shell: bash
+
+    - name: Set up Python
+      uses: actions/setup-python@v2
+      with:
+        python-version: 3.11
+
+    - name: Install dependencies
+      run: |
+        sudo apt-get install -y python3-venv
+        python -m pip install --upgrade pip
+
+    - name: Test standard project
+      run: |
+        chmod +x ./create_python.sh
+        ./create_python.sh test_standard ./test standard
+
+    - name: Test web project
+      run : |
+        chmod +x ./create_python.sh test_web ./test web

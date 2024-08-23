@@ -55,9 +55,10 @@ elif [ "$3" = "standard" ]; then
 	cp "../create_python_utils/py_utils.py" "src/utils"
 fi
 
-touch README.md
-# Define source and destination directories
+# Copy README
+cp "../create_python_utils/README_template.md" .
 
+# Define source and destination directories
 mkdir src/data
 mkdir docs
 mkdir tests
