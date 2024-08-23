@@ -107,6 +107,7 @@ elif [ "$3" = "standard" ]; then
 	cp ../create_python_utils/conda_env.yml .
 	source ~/miniconda3/bin/activate .
 	conda env create -f ../create_python_utils/conda_env.yml
+	conda init
 	conda activate conda_env
 fi
 

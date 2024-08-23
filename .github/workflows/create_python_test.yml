@@ -40,4 +40,5 @@ jobs:
 
     - name: Test web project
       run : |
-        chmod +x ./create_python.sh test_web ./test web
+        chmod +x ./create_python.sh
+        ./create_python.sh test_web ./test web
