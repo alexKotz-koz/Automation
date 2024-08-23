@@ -1,5 +1,5 @@
 # Personal Shell Scripts
-> A growing repository of shell scripts to automate frequent tasks a PhD student might encounter.
+> Useful automation scripts.
 
 ## Installation
 
