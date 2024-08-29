@@ -36,7 +36,6 @@ destination_directory=${2:-.}
 mkdir -p "$destination_directory/$project_name"
 project_dir="$destination_directory/$project_name"
 cd $project_dir
-#cd "$destination_directory/$project_name"
 
 
 # Create basic project structure
@@ -47,19 +46,22 @@ if [ "$3" = "web" ]; then
 	mkdir src/backend
 	mkdir src/secrets
 	cd $script_dir
-	cp "./py_utils.py" "$project_dir/src/py_utils.py"
+	cp "create_python_utils/py_utils.py" "$project_dir/src/py_utils.py"
+	cp "create_python_utils/README_template.md" "$project_dir/README.md"
 	cd $project_dir
 elif [ "$3" = "standard" ]; then
 	mkdir src/components
 	touch "README.md"
 	cd $script_dir
-	cp "./py_utils.py" "$project_dir/src/py_utils.py"
+	cp "create_python_utils/py_utils.py" "$project_dir/src/py_utils.py"
+	cp "create_python_utils/README_template.md" "$project_dir/README.md"
 	cd $project_dir
 elif [ "$3" = "ml" ]; then
 	mkdir src/components
 	touch "README.md"
 	cd $script_dir 
-	cp "./py_utils.py" "$project_dir/src/py_utils.py"
+	cp "create_python_utils/py_utils.py" "$project_dir/src/py_utils.py"
+	cp "create_python_utils/README_template.md" "$project_dir/README.md"
 	cd $project_dir
 fi
 
