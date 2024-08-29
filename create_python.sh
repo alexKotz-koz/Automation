@@ -4,21 +4,21 @@
 # Check if the first argument is provided
 if [ -z "$1" ]; then
     # If not, print a message and exit
-    echo "Usage: ./create_python.sh <project_name> <destination_directory> <project_type: web or standard>"
+    echo "Usage: ./create_python.sh <project_name> <destination_directory> <project_type: web, standard, ml>"
     exit 1
 fi
 
 # Check if the second argument is provided
 if [ -z "$2" ]; then
     # If not, print a message and exit
-    echo "Usage: ./create_python.sh <project_name> <destination_directory> <project_type: web or standard>"
+    echo "Usage: ./create_python.sh <project_name> <destination_directory> <project_type: web, standard, ml>"
     exit 1
 fi
 
 # Check if the third argument is provided
 if [ -z "$3" ]; then
     # If not, print a message and exit
-    echo "Usage: ./create_python.sh <project_name> <destination_directory> <project_type: web or standard>"
+    echo "Usage: ./create_python.sh <project_name> <destination_directory> <project_type: web, standard, ml>"
     exit 1
 fi
 
@@ -46,48 +46,54 @@ if [ "$3" = "web" ]; then
 	touch src/frontend/main.ipynb
 	mkdir src/backend
 	mkdir src/secrets
-	cp "../create_python_utils/py_utils.py" "$project_dir/src"
+	cd $script_dir
+	cp "./py_utils.py" "$project_dir/src/py_utils.py"
+	cd $project_dir
 elif [ "$3" = "standard" ]; then
 	mkdir src/components
-	mkdir src/utils
 	touch "README.md"
-	echo $script_dir
-	cp "../create_python_utils/py_utils.py" "src/utils"
+	cd $script_dir
+	cp "./py_utils.py" "$project_dir/src/py_utils.py"
+	cd $project_dir
+elif [ "$3" = "ml" ]; then
+	mkdir src/components
+	touch "README.md"
+	cd $script_dir 
+	cp "./py_utils.py" "$project_dir/src/py_utils.py"
+	cd $project_dir
 fi
 
-# Copy README
-cp "../create_python_utils/README_template.md" .
 
+touch README.md
+ls .
 # Define source and destination directories
+
 mkdir src/data
 mkdir docs
 mkdir tests
 touch requirements.txt
 touch .gitignore
 
+# Create a virtual environment
+#python3 -m venv venv
 
 # Create a main Python script (e.g., main.py)
-if [ "$3" = "web" ]; then
-	echo 'import pandas as pd' >> src/main.py
-	echo 'import numpy as np' >> src/main.py
-	echo 'def main():' >> src/main.py
-	echo '    pass' >> src/main.py
-	echo '' >> src/main.py
-	echo 'if __name__ == "__main__":' >> src/main.py
-	echo '    main()' >> src/main.py
+echo 'import pandas as pd' >> src/main.py
+echo 'import numpy as np' >> src/main.py
+if [ "$3" = "ml" ]; then
+	echo 'import shelve' >> src/main.py
+	echo 'import matplotlib.pyplot as plt' >> src/main.py
+	echo 'import xlsxwriter' >> src/main.py
 elif [ "$3" = "standard" ]; then
-	echo 'import pandas as pd' >> src/main.py
-	echo 'import numpy as np' >> src/main.py
-	echo 'import argparse' >> src/main.py
-	echo 'import os' >> src/main.py
-	echo 'import time' >> src/main.py
-	echo 'def main():' >> src/main.py
-	echo '    pass' >> src/main.py
-	echo '' >> src/main.py
-	echo 'if __name__ == "__main__":' >> src/main.py
-	echo '    main()' >> src/main.py
+	echo 'import matplotlib.pyplot as plt' >> src/main.py
+elif [ "$3" = "web" ]; then
+	echo 'import flask' >> src/main.py
 fi
-
+echo 'def main():' >> src/main.py
+echo '    pass' >> src/main.py
+echo '' >> src/main.py
+echo 'if __name__ == "__main__":' >> src/main.py
+echo '    main()' >> src/main.py
 
 # Create main Test script
 echo 'def test_main():' >> tests/main_test.py
@@ -98,20 +104,27 @@ echo '	test_main()' >> tests/main_test.py
 echo '	print("Everything passed")' >> tests/main_test.py
 
 # Create virtual environment
-if [ "$3" = "web" ]; then
-	python3 -m venv venv
-	source venv/bin/activate
-	pip install --upgrade pip
-	pip install ipykernel pandas matplotlib
+python3 -m venv venv
+
+source venv/bin/activate
+
+
+pip install --upgrade pip
+
+
+pip install ipykernel pandas matplotlib
+
+
+if [ "$3" = "ml" ]; then 
+	pip install numpy matplotlib pandas xlsxwriter openpyxl
 elif [ "$3" = "standard" ]; then
-	cp ../create_python_utils/conda_env.yml .
-	source ~/miniconda3/bin/activate .
-	conda env create -f ../create_python_utils/conda_env.yml
-	conda init
-	conda activate conda_env
+	pip install numpy pandas matplotlib ipykernel
+elif [ "$3" = "web" ]; then
+	pip install numpy pandas ipykernel flask
 fi
 
-
 # Print a success message
+echo ""
+echo ""
 echo "Project scaffolding for '$project_name' created successfully!"
 
