@@ -39,9 +39,9 @@ Usage: ./create_python.sh <project_name> <destination_directory> <project_type: 
 $1 project_name | Desired name of the parent directory for the project <br>
 $2 destination_directory | File path to the desired location of the project directory <br>
 $3 project_type {'web', 'standard', 'ml'}<br>
-- web: frontend and backend with a jupyter notebook under the frontend directory
+- web: frontend and backend with a jupyter notebook under the frontend directory, and a flask installation
 - standard: standard boilerplate for python project
-- ml: standard boilerplate for python project with xlsxwriter, shelve, and matplotlib
+- ml: (Machine Learning) standard boilerplate for python project with xlsxwriter, shelve, and matplotlib
 ```sh
 ./create_python.sh test_project ~/Desktop/ standard
 
@@ -50,7 +50,7 @@ $3 project_type {'web', 'standard', 'ml'}<br>
 
 ## Contributing
 
-1. Fork it (<https://github.com/alexKotz-koz/Shell-Scripts.git>)
+1. Fork it (<https://github.com/alexKotz-koz/Automation.git>)
 2. Create your feature branch (`git checkout -b feature/fooBar`)
 3. Commit your changes (`git commit -am 'Add some fooBar'`)
 4. Push to the branch (`git push origin feature/fooBar`)
