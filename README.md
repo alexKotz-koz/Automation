@@ -1,4 +1,4 @@
-# Personal Shell Scripts
+# Shell and Automation Scripts
 > Useful automation scripts.
 
 ## Installation
@@ -9,9 +9,8 @@ OS X & Linux:
 Clone or download the repository.
 HTTPS:
 ```sh
-mkdir Shell-Scripts
-cd Shell-Scripts
-git clone https://github.com/alexKotz-koz/Shell-Scripts.git
+cd <parent directory>
+git clone https://github.com/alexKotz-koz/Automation.git
 ```
 ---
 Set up miniconda environment (*required for create_python.sh*):
