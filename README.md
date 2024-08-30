@@ -35,13 +35,14 @@ chmod +x <filename>
 ---
 **create_python.sh:**
 
-Usage: ./create_python.sh <project_name> <destination_directory> <project_type: 'web' or 'standard'>
+Usage: ./create_python.sh <project_name> <destination_directory> <project_type: 'web', 'standard', 'ml'>
 
 $1 project_name | Desired name of the parent directory for the project <br>
 $2 destination_directory | File path to the desired location of the project directory <br>
-$3 project_type {'web' or 'standard'}<br>
+$3 project_type {'web', 'standard', 'ml'}<br>
 - web: frontend and backend with a jupyter notebook under the frontend directory
 - standard: standard boilerplate for python project
+- ml: standard boilerplate for python project with xlsxwriter, shelve, and matplotlib
 ```sh
 ./create_python.sh test_project ~/Desktop/ standard
 
